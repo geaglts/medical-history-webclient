@@ -7,6 +7,7 @@ export enum EButtonStyleType {
 
 export enum EButtonColor {
   danger = "#ec2c2c",
+  action = "#af2cec",
 }
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import Checkup from "./Checkup";
-import Button from "./Button";
+import Button, { EButtonColor, EButtonStyleType } from "./Button";
 
 import AddCheckupForm from "@containers/AddCheckupForm";
 
@@ -13,11 +13,16 @@ export interface PatientProps {
 }
 
 const Patient = ({ patient }: PatientProps) => {
-  const { reloadPatient } = useContext<AppContextType>(AppContext);
+  const { reloadPatient, unsetPatient } =
+    useContext<AppContextType>(AppContext);
   const [form, setForm] = useState(false);
 
   const onToggleForm = () => {
     setForm(!form);
+  };
+
+  const onFindPatient = () => {
+    unsetPatient();
   };
 
   const afterSubmitAddCheckup = () => {
@@ -32,7 +37,16 @@ const Patient = ({ patient }: PatientProps) => {
         <p className="info_age">{patient.age} Años</p>
         <p className="info_phoneNumber">{patient.phoneNumber}</p>
       </div>
-      {!form && <Button label="Nueva revisión" center onClick={onToggleForm} />}
+      {!form && (
+        <div className="buttons">
+          <Button label="Nueva revisión" onClick={onToggleForm} />
+          <Button
+            label="Bucar paciente"
+            onClick={onFindPatient}
+            colorType={EButtonColor.action}
+          />
+        </div>
+      )}
       {form && (
         <div className="form">
           <AddCheckupForm
@@ -75,6 +89,13 @@ const Patient = ({ patient }: PatientProps) => {
 
         .form {
           width: 300px;
+        }
+
+        .buttons {
+          display: grid;
+          grid-auto-flow: column;
+          column-gap: 8px;
+          width: 340px;
         }
 
         .checkups {
