@@ -1,15 +1,19 @@
-import { FormEvent, useRef, useContext } from "react";
+import { FormEvent, useRef, useContext, useState } from "react";
 import axios from "axios";
 
+import AddPatientForm from "./AddPatientForm";
+
 import Input from "@components/Input";
-import Button from "@components/Button";
+import Button, { EButtonStyleType } from "@components/Button";
 
 import AppContext from "@contexts/AppContext";
 
 import { AppContextType } from "@utils/types/context.types";
+import CFormControl from "@utils/classes/CFormControl";
 
 const FindPatientForm = () => {
   const { setPatient } = useContext<AppContextType>(AppContext);
+  const [postPatientForm, setPostPatientForm] = useState(false);
   const form = useRef(null);
 
   const onSubmit = async (e: FormEvent) => {
@@ -27,6 +31,37 @@ const FindPatientForm = () => {
     }
   };
 
+  const onTogglePostPatientForm = () => {
+    setPostPatientForm(!postPatientForm);
+  };
+
+  const onSubmitPostPatientForm = async (e: FormEvent) => {
+    e.preventDefault();
+    console.count("onSubmitPostPatientForm");
+    const FormControl = CFormControl(FormData);
+    const form = e.currentTarget as HTMLFormElement;
+    const { data } = new FormControl(form);
+    try {
+      await axios.post("/patients", data);
+      form.reset();
+      onTogglePostPatientForm();
+    } catch (error) {
+      // console.log({
+      //   location: "FindPatientForm->onSubmitPostPatientForm",
+      //   error: error.response.data,
+      // });
+    }
+  };
+
+  if (postPatientForm) {
+    return (
+      <AddPatientForm
+        onCancelForm={onTogglePostPatientForm}
+        onSubmitForm={onSubmitPostPatientForm}
+      />
+    );
+  }
+
   return (
     <form onSubmit={onSubmit} className="form" ref={form}>
       <h2 className="form_title">Buscar paciente</h2>
@@ -41,8 +76,15 @@ const FindPatientForm = () => {
         type="password"
         label="Clave de usuario"
         placeholder="********"
+        autoComplete="new-password"
       />
       <Button type="submit" label="Buscar" />
+      <Button
+        type="button"
+        label="Agregar paciente"
+        styleType={EButtonStyleType.link}
+        onClick={onTogglePostPatientForm}
+      />
       <style jsx>{`
         .form {
           margin: 0 auto;

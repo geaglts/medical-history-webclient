@@ -1,5 +1,10 @@
 import type { ButtonHTMLAttributes } from "react";
 
+export enum EButtonStyleType {
+  normal = " normal",
+  link = " link",
+}
+
 export enum EButtonColor {
   danger = "#ec2c2c",
 }
@@ -8,36 +13,58 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
   center?: boolean;
   colorType?: EButtonColor;
+  styleType?: EButtonStyleType;
 }
 
-const Button = ({ label, center, colorType, ...rest }: ButtonProps) => {
+const Button = ({
+  label,
+  center,
+  colorType,
+  styleType = EButtonStyleType.normal,
+  ...rest
+}: ButtonProps) => {
   return (
-    <button {...rest} className="container">
+    <button {...rest} className={`container${styleType}`}>
       {label}
       <style jsx>{`
         .container {
-          height: 40px;
+          background-color: transparent;
           border: none;
-          background-color: ${colorType ? colorType : "#2859e0"};
-          border-radius: 4px;
-          box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
           font-family: "Roboto", sans-serif;
-          font-size: 12pt;
-          font-weight: 700;
-          color: #fafafa;
           cursor: pointer;
           transition: all 400ms ease;
           ${center
             ? `
             padding: 0 12px;
-          `
+            `
             : ""}
         }
 
-        .container:hover {
+        .normal {
+          height: 40px;
+          border-radius: 4px;
+          font-size: 12pt;
+          font-weight: 700;
+          background-color: ${colorType ? colorType : "#2859e0"};
+          box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+          color: #fafafa;
+        }
+
+        .normal:hover {
           transition: all 300ms ease;
           color: ${colorType ? colorType : "#2859e0"};
           background-color: #fafafa;
+        }
+
+        .link {
+          color: #fafafa;
+          text-decoration: underline;
+          font-size: 12pt;
+        }
+
+        .link:hover {
+          transition: all 300ms ease;
+          color: ${colorType ? colorType : "#2859e0"};
         }
       `}</style>
     </button>
