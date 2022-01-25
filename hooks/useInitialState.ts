@@ -19,16 +19,13 @@ const useInitialState = () => {
     try {
       const res = await axios.get(`/patients/${patientId}`);
       if (res.data?.body) {
-        setValues({
-          ...values,
-          patient: { ...values.patient, ...res.data.body },
-        });
+        setValues({ ...values, patient: res.data.body });
       }
     } catch (error) {
-      console.log({
-        location: "useInitialState->reloadPatient",
-        error: error.response.data,
-      });
+      // console.log({
+      //   location: "useInitialState->reloadPatient",
+      //   error: error.response.data,
+      // });
     }
   };
   return { ...values, setPatient, unsetPatient, reloadPatient };
