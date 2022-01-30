@@ -107,6 +107,22 @@ const AddPatientForm = ({
           grid-template-columns: 1fr 1fr;
           column-gap: 8px;
         }
+
+        @media (min-width: 280px) {
+          .form {
+            width: 100%;
+            padding: 0 12px;
+          }
+
+          .horizontal {
+            grid-auto-flow: row;
+            gap: 16px;
+          }
+
+          .inputs {
+            row-gap: 24px;
+          }
+        }
       `}</style>
     </form>
   );

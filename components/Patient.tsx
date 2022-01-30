@@ -94,7 +94,7 @@ const Patient = ({ patient }: PatientProps) => {
         .buttons {
           display: grid;
           grid-auto-flow: column;
-          column-gap: 8px;
+          gap: 8px;
           width: 340px;
         }
 
@@ -105,6 +105,13 @@ const Patient = ({ patient }: PatientProps) => {
           overflow-y: auto;
           padding: 0 12px;
           justify-content: center;
+        }
+
+        @media (min-width: 280px) {
+          .buttons {
+            width: 100%;
+            grid-auto-flow: row;
+          }
         }
       `}</style>
     </div>

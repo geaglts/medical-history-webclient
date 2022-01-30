@@ -137,6 +137,13 @@ const FindPatientForm = () => {
           position: absolute;
           bottom: -40px;
         }
+
+        @media (min-width: 280px) {
+          .form {
+            width: 100%;
+            padding: 0 12px;
+          }
+        }
       `}</style>
     </form>
   );

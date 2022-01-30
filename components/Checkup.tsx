@@ -95,6 +95,12 @@ const Checkup = ({ checkup }: ICheckupProps) => {
           align-items: center;
           justify-content: flex-end;
         }
+
+        @media (min-width: 280px) {
+          .container {
+            width: 100%;
+          }
+        }
       `}</style>
     </div>
   );
