@@ -96,7 +96,7 @@ const Checkup = ({ checkup }: ICheckupProps) => {
           justify-content: flex-end;
         }
 
-        @media (min-width: 280px) {
+        @media (max-width: 420px) {
           .container {
             width: 100%;
           }

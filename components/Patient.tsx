@@ -107,7 +107,7 @@ const Patient = ({ patient }: PatientProps) => {
           justify-content: center;
         }
 
-        @media (min-width: 280px) {
+        @media (max-width: 420px) {
           .buttons {
             width: 100%;
             grid-auto-flow: row;

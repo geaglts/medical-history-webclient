@@ -108,7 +108,7 @@ const AddPatientForm = ({
           column-gap: 8px;
         }
 
-        @media (min-width: 280px) {
+        @media (max-width: 420px) {
           .form {
             width: 100%;
             padding: 0 12px;
